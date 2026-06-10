@@ -1,0 +1,69 @@
+<!-- components/pages/tamu.html -->
+<div class="page-header page-header--sticky" style="display:flex;align-items:flex-start;justify-content:space-between">
+  <div>
+    <div class="page-title">Daftar Tamu</div>
+    <div class="page-sub">Kelola semua tamu undangan Anda</div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn" id="btn-bulk-hapus" onclick="bulkHapusTamu()" style="display:none;color:#e07a5f;border-color:#e07a5f">
+      <i class="ti ti-trash"></i> Hapus Terpilih (<span id="bulk-hapus-count">0</span>)
+    </button>
+    <button class="btn" onclick="exportTamu()"><i class="ti ti-download"></i> Export</button>
+    <button class="btn" onclick="downloadTemplateTamu()">
+      <i class="ti ti-table-down"></i> Template Excel
+    </button>
+    <button class="btn" onclick="document.getElementById('inputBulkExcel').click()">
+      <i class="ti ti-file-upload"></i> Upload Excel
+    </button>
+    <input type="file" id="inputBulkExcel" accept=".xlsx,.xls" style="display:none" onchange="bulkImportTamu(this)">
+    <button class="btn btn-primary" onclick="openModal('modal-tambah-tamu')">
+      <i class="ti ti-plus"></i> Tambah Tamu
+    </button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div style="display:flex;gap:8px;align-items:center;flex:1">
+      <div style="position:relative;flex:1;max-width:280px">
+        <i class="ti ti-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:15px"></i>
+        <input type="search" placeholder="Cari nama tamu..." style="padding-left:32px"
+               oninput="onSearchTamu(this.value)">
+      </div>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">
+          <input type="checkbox" id="tamu-check-all" onchange="toggleSelectAllTamu(this.checked)" style="cursor:pointer">
+        </th>
+        <th data-sort-key="tamu" data-sort-col="nama" onclick="applySort('tamu','nama')" style="cursor:pointer;user-select:none">Nama Tamu<span class="sort-icon"></span></th>
+        <th data-sort-key="tamu" data-sort-col="hubungan" onclick="applySort('tamu','hubungan')" style="cursor:pointer;user-select:none">Hubungan<span class="sort-icon"></span></th>
+        <th data-sort-key="tamu" data-sort-col="nomor_wa" onclick="applySort('tamu','nomor_wa')" style="cursor:pointer;user-select:none">No HP/WA<span class="sort-icon"></span></th>
+        <th data-sort-key="tamu" data-sort-col="_rsvpStatus" onclick="applySort('tamu','_rsvpStatus')" style="cursor:pointer;user-select:none">RSVP<span class="sort-icon"></span></th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="tamu-tbody">
+      <tr><td colspan="5" style="text-align:center;color:var(--text2);padding:20px">Memuat data...</td></tr>
+    </tbody>
+  </table>
+  <div class="pagination-wrap" id="tamu-pagination" style="display:none">
+    <div class="pagination-info" id="tamu-pag-info"></div>
+    <div class="pagination-controls">
+      <span class="per-page-label">Tampilkan</span>
+      <select onchange="setPerPage('tamu', this.value)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="999">Semua</option>
+      </select>
+      <span class="per-page-label">per halaman</span>
+      <button class="page-btn" id="tamu-prev" onclick="changePage('tamu', -1)">‹</button>
+      <span id="tamu-page-nums" style="display:flex;gap:4px"></span>
+      <button class="page-btn" id="tamu-next" onclick="changePage('tamu', 1)">›</button>
+    </div>
+  </div>
+</div>

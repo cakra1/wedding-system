@@ -1,0 +1,265 @@
+<!-- components/pages/settings.html -->
+<div class="page-sticky-header">
+  <div>
+    <div class="page-title" style="margin:0">Pengaturan Undangan</div>
+    <div class="page-sub" style="margin:0">Kelola semua konten yang tampil di undangan</div>
+  </div>
+  <button class="btn btn-primary" onclick="saveSettings()">
+    <i class="ti ti-device-floppy"></i> Simpan Semua
+  </button>
+</div>
+
+<!-- FOTO MEMPELAI -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">📸 Foto Mempelai</div>
+  </div>
+  <div class="grid-2" style="gap:24px">
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Foto Mempelai Pria</div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div id="previewFotoPria" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--bg2)">🤵</div>
+        <div>
+          <input type="file" id="inputFotoPria" accept="image/*" style="display:none" onchange="uploadFotoMempelai('pria', this)">
+          <button class="btn btn-sm" onclick="document.getElementById('inputFotoPria').click()">
+            <i class="ti ti-upload"></i> Upload Foto
+          </button>
+          <button class="btn btn-sm" id="btnHapusFotoPria" onclick="hapusFotoMempelai('pria')" style="display:none;color:#e07a5f;border-color:#e07a5f;margin-top:6px">
+            <i class="ti ti-trash"></i> Hapus
+          </button>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">JPG/PNG, maks 10MB</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Foto Mempelai Wanita</div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div id="previewFotoWanita" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--bg2)">👰</div>
+        <div>
+          <input type="file" id="inputFotoWanita" accept="image/*" style="display:none" onchange="uploadFotoMempelai('wanita', this)">
+          <button class="btn btn-sm" onclick="document.getElementById('inputFotoWanita').click()">
+            <i class="ti ti-upload"></i> Upload Foto
+          </button>
+          <button class="btn btn-sm" id="btnHapusFotoWanita" onclick="hapusFotoMempelai('wanita')" style="display:none;color:#e07a5f;border-color:#e07a5f;margin-top:6px">
+            <i class="ti ti-trash"></i> Hapus
+          </button>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">JPG/PNG, maks 10MB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMPELAI -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">👰🤵 Data Mempelai</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="form-row">
+      <label class="form-label">Nama Lengkap Mempelai Pria</label>
+      <input type="text" id="set_nama_pria" placeholder="cth: Normandia Cakra Wijaya">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Nama Lengkap Mempelai Wanita</label>
+      <input type="text" id="set_nama_wanita" placeholder="cth: Sella Silviani Cahyana">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Nama Orang Tua Mempelai Pria</label>
+      <input type="text" id="set_ortu_pria" placeholder="cth: Suhari & Nurlinawati">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Nama Orang Tua Mempelai Wanita</label>
+      <input type="text" id="set_ortu_wanita" placeholder="cth: Muhamad Cahyana & Ety Supriati">
+    </div>
+  </div>
+</div>
+
+<!-- ACARA -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">📅 Tanggal & Lokasi Acara</div>
+  </div>
+
+  <!-- Tanggal & Jam -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Akad Nikah</div>
+      <div class="form-row">
+        <label class="form-label">Tanggal</label>
+        <div style="position:relative">
+          <i class="ti ti-calendar" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--sage);font-size:16px;pointer-events:none"></i>
+          <input type="date" id="set_tanggal_akad" style="padding-left:38px;cursor:pointer">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Jam Mulai</label>
+        <input type="text" id="set_jam_akad" placeholder="cth: 08.00">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Jam Selesai</label>
+        <input type="text" id="set_selesai_akad" placeholder="cth: Selesai">
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Resepsi</div>
+      <div class="form-row">
+        <label class="form-label">Tanggal</label>
+        <div style="position:relative">
+          <i class="ti ti-calendar" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--sage);font-size:16px;pointer-events:none"></i>
+          <input type="date" id="set_tanggal_resepsi" style="padding-left:38px;cursor:pointer">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Jam Mulai</label>
+        <input type="text" id="set_jam_resepsi" placeholder="cth: 11.00">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Jam Selesai</label>
+        <input type="text" id="set_selesai_resepsi" placeholder="cth: 14.00">
+      </div>
+    </div>
+  </div>
+
+  <!-- Lokasi -->
+  <div style="border-top:0.5px solid var(--border);margin-top:20px;padding-top:20px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+      <!-- Lokasi Akad -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Lokasi Akad</div>
+        <div class="form-row">
+          <label class="form-label">Nama Gedung</label>
+          <input type="text" id="set_lokasi_nama" placeholder="cth: Masjid Al-Ikhlas">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Alamat</label>
+          <input type="text" id="set_lokasi_alamat" placeholder="cth: Jakarta Selatan">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Link Google Maps</label>
+          <input type="text" id="set_lokasi_maps" placeholder="https://maps.app.goo.gl/...">
+        </div>
+      </div>
+
+      <!-- Lokasi Resepsi -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Lokasi Resepsi</div>
+        <div class="form-row">
+          <label class="form-label">Nama Gedung</label>
+          <input type="text" id="set_lokasi_resepsi_nama" placeholder="cth: Gedung Serbaguna">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Alamat</label>
+          <input type="text" id="set_lokasi_resepsi_alamat" placeholder="cth: Bogor, Jawa Barat">
+        </div>
+        <div class="form-row">
+          <label class="form-label">Link Google Maps</label>
+          <input type="text" id="set_lokasi_resepsi_maps" placeholder="https://maps.app.goo.gl/...">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- E-GIFT -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">💝 E-Gift & Rekening</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Rekening 1</div>
+      <div class="form-row">
+        <label class="form-label">Nama Bank</label>
+        <input type="text" id="set_rekening_1_bank" placeholder="cth: BCA">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Atas Nama</label>
+        <input type="text" id="set_rekening_1_nama" placeholder="cth: Normandia C.W.">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Nomor Rekening</label>
+        <input type="text" id="set_rekening_1_nomor" placeholder="cth: 1234567890">
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px">Rekening 2</div>
+      <div class="form-row">
+        <label class="form-label">Nama Bank</label>
+        <input type="text" id="set_rekening_2_bank" placeholder="cth: BRI">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Atas Nama</label>
+        <input type="text" id="set_rekening_2_nama" placeholder="cth: Sella Silviani C.">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Nomor Rekening</label>
+        <input type="text" id="set_rekening_2_nomor" placeholder="cth: 0987654321">
+      </div>
+    </div>
+    <div class="form-row" style="grid-column:span 2">
+      <label class="form-label">Alamat Pengiriman Hadiah Fisik</label>
+      <input type="text" id="set_alamat_hadiah" placeholder="cth: Jl. Contoh No. 00, RT/RW 000/000, Bogor">
+    </div>
+  </div>
+</div>
+<!-- MUSIK LATAR BELAKANG -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">🎵 Musik Latar Belakang</div>
+    <div style="font-size:12px;color:var(--text3)">Musik yang otomatis diputar saat tamu membuka undangan</div>
+  </div>
+  <div class="form-row">
+    <label class="form-label">URL File Lagu <span style="font-weight:400;color:var(--text3)">(MP3 / OGG)</span></label>
+    <input type="url" id="set_music_url" placeholder="https://cdn.contoh.com/lagu-pernikahan.mp3">
+    <div style="font-size:11px;color:var(--text3);margin-top:6px">
+      Masukkan link langsung ke file audio (MP3/OGG). Bisa pakai link dari Google Drive, Supabase Storage, atau hosting lain yang mendukung CORS.
+    </div>
+  </div>
+  <div id="musicPreviewWrap" style="display:none;margin-top:12px">
+    <audio id="previewMusicAudio" controls style="width:100%;border-radius:8px"></audio>
+  </div>
+</div>
+
+<script>
+// Preview musik langsung di dashboard saat URL diubah
+(function() {
+  const inp = document.getElementById('set_music_url');
+  if (!inp) return;
+  inp.addEventListener('change', function() {
+    const wrap  = document.getElementById('musicPreviewWrap');
+    const audio = document.getElementById('previewMusicAudio');
+    if (this.value.trim()) {
+      audio.src = this.value.trim();
+      wrap.style.display = 'block';
+    } else {
+      wrap.style.display = 'none';
+      audio.src = '';
+    }
+  });
+})();
+</script>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">🎬 Video Undangan</div>
+    <div style="font-size:12px;color:var(--text3)">Video yang tampil di halaman Tanggal & Lokasi</div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px">
+      <video id="previewVideoUndangan" controls style="display:none;width:100%;max-height:160px;border-radius:10px;background:#000;margin-bottom:12px"></video>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <label class="btn btn-sm btn-primary" style="cursor:pointer">
+          <i class="ti ti-upload"></i> Upload Video
+          <input type="file" accept="video/mp4,video/webm" style="display:none" onchange="uploadVideoUndangan(this)">
+        </label>
+        <button id="btnHapusVideo" onclick="hapusVideoUndangan()" style="display:none" class="btn btn-sm" style="color:#e07a5f;border-color:#e07a5f">
+          <i class="ti ti-trash"></i> Hapus
+        </button>
+      </div>
+      <div id="videoNamaFile" style="font-size:11px;color:var(--text3);margin-top:8px">Belum ada video. Format: MP4, maks 50MB.</div>
+    </div>
+  </div>
+</div>

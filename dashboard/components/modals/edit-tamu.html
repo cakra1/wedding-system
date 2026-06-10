@@ -1,0 +1,48 @@
+<!-- wedding-system/dashboard/components/modals/edit-tamu.html -->
+
+<div class="modal-backdrop" id="modal-edit-tamu" onclick="closeModalOutside(event, 'modal-edit-tamu')">
+  <div class="modal" onclick="event.stopImmediatePropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Data Tamu</h3>
+      <button onclick="closeModal('modal-edit-tamu')" class="btn btn-icon">✕</button>
+    </div>
+
+    <input type="hidden" id="editTamuId">
+
+    <div class="form-row">
+      <label class="form-label">NAMA TAMU / KELUARGA</label>
+      <input type="text" id="editNamaTamu" placeholder="Contoh: Keluarga Budi Santoso" required>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">HUBUNGAN</label>
+      <select id="editHubungan">
+        <option value="">Pilih Hubungan</option>
+        <option value="Keluarga Mempelai Pria">Keluarga Mempelai Pria</option>
+        <option value="Keluarga Mempelai Wanita">Keluarga Mempelai Wanita</option>
+        <option value="Teman Kantor">Teman Kantor</option>
+        <option value="Teman Sekolah">Teman Sekolah</option>
+        <option value="Tetangga">Tetangga</option>
+        <option value="Rekan Bisnis">Rekan Bisnis</option>
+        <option value="Lainnya">Lainnya</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="editNomorWa">No WA</label>
+      <input
+        class="form-input"
+        type="text"
+        id="editNomorWa"
+        placeholder="08xx-xxxx-xxxx"
+      >
+    </div>
+
+    <div style="display:flex; gap:12px; margin-top:28px;">
+      <button onclick="closeModal('modal-edit-tamu')" class="btn" style="flex:1">Batal</button>
+      <button onclick="simpanEditTamu()" class="btn btn-primary" style="flex:1">
+        <i class="ti ti-check"></i> Simpan Perubahan
+      </button>
+    </div>
+  </div>
+</div>

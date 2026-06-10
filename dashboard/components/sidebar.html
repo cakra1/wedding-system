@@ -1,0 +1,54 @@
+<!-- components/sidebar.html -->
+  <div class="brand">
+    <div class="brand-top">
+      <div class="brand-names" id="sidebarNama">Normandia & Sella</div>
+      <button class="sidebar-toggle" id="sidebarToggleBtn" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <i class="ti ti-menu-2"></i>
+      </button>
+    </div>
+    <div class="brand-date"><span class="brand-dot"></span><span id="sidebarTanggal">09 Agustus 2026</span></div>
+  </div>
+
+  <div style="padding: 12px 0;">
+    <div class="nav-section">Menu</div>
+    <div class="nav-item active" data-page="overview" onclick="showPage(this)">
+      <i class="ti ti-layout-dashboard"></i> Overview
+    </div>
+    <div class="nav-item" data-page="tamu" onclick="showPage(this)">
+      <i class="ti ti-users"></i> Daftar Tamu
+      <span class="nav-badge" id="badgeTamu">0</span>
+    </div>
+
+    <div class="nav-section" style="margin-top:8px">Aktivitas</div>
+    <div class="nav-item" data-page="rsvp" onclick="showPage(this)">
+      <i class="ti ti-checkbox"></i> RSVP
+      <span class="nav-badge" id="badgeRsvp">0</span>
+    </div>
+    <div class="nav-item" data-page="wishes" onclick="showPage(this)">
+      <i class="ti ti-heart"></i> Wishes
+      <span class="nav-badge" id="badgeWishes">0</span>
+    </div>
+
+    <div class="nav-section" style="margin-top:8px">Konten</div>
+    <div class="nav-item" data-page="foto" onclick="showPage(this)">
+      <i class="ti ti-photo"></i> Foto Pre-Wed
+    </div>
+    <div class="nav-item" data-page="undangan" onclick="showPage(this)">
+      <i class="ti ti-send"></i> Kirim Undangan
+    </div>
+
+    <div class="nav-section" style="margin-top:8px">Konfigurasi</div>
+    <div class="nav-item" data-page="settings" onclick="showPage(this)">
+      <i class="ti ti-settings"></i> Pengaturan
+    </div>
+    <div class="nav-item admin-only" data-page="akun" onclick="showPage(this)">
+      <i class="ti ti-users"></i> Akun
+    </div>
+  </div>
+
+  <div style="padding:12px 16px;border-top:1px solid var(--border);margin-top:auto">
+    <div style="font-size:11px;color:var(--text3);margin-bottom:8px" id="sidebar-role-info"></div>
+    <button onclick="logout()" class="btn btn-sm" style="width:100%;justify-content:flex-start;gap:8px;color:var(--text3)">
+      <i class="ti ti-logout"></i> Keluar
+    </button>
+  </div>

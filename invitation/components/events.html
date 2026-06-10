@@ -1,0 +1,73 @@
+<!-- components/events.html -->
+<section id="events">
+  <div class="section-label reveal">Rangkaian Acara</div>
+  <div class="section-title reveal">Tanggal &amp; Lokasi</div>
+  <div class="divider reveal"><span>✦</span></div>
+
+  <!-- VIDEO — hanya muncul kalau ada video_url -->
+  <div id="videoWrap" style="max-width:700px;margin:0 auto 40px;display:none">
+    <div id="videoContainer" style="position:relative;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12)">
+      <video
+        id="weddingVideo"
+        style="width:100%;display:block;height:auto"
+        preload="metadata"
+        playsinline>
+        <source id="videoUndanganSource" src="" type="video/mp4">
+      </video>
+      <!-- Overlay play/replay -->
+      <div id="videoOverlay" onclick="toggleVideo()" style="
+        position:absolute;inset:0;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;
+        cursor:pointer;
+        background:rgba(0,0,0,0.28);
+        transition:opacity 0.3s">
+        <div style="
+          width:68px;height:68px;
+          background:rgba(255,255,255,0.92);
+          border-radius:50%;
+          display:flex;align-items:center;justify-content:center;
+          box-shadow:0 4px 20px rgba(0,0,0,0.3)">
+          <svg id="videoIcon" width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <polygon points="6,3 20,12 6,21" fill="#3a5a40"/>
+          </svg>
+        </div>
+        <span id="videoLabel" style="color:#fff;font-size:0.78rem;margin-top:12px;letter-spacing:0.1em;font-family:'Cormorant Garamond',serif">Putar Video</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SINGLE CARD — tampil kalau tanggal + jam + lokasi_maps sama -->
+  <div id="eventsSingle" class="events-grid reveal" style="display:none;justify-content:center">
+    <div class="event-card">
+      <div class="event-type">Akad Nikah &amp; Resepsi</div>
+      <div class="event-day" id="tanggalSingle"></div>
+      <div class="event-month" id="bulanSingle"></div>
+      <div class="event-time" id="jamSingle"></div>
+      <div class="event-venue" id="lokasiNamaSingle"></div>
+      <div class="event-address" id="lokasiAlamatSingle"></div>
+      <a href="#" target="_blank" class="map-btn" id="lokasiMapsSingle">📍 Lihat Lokasi</a>
+    </div>
+  </div>
+
+  <!-- DUAL CARD — tampil kalau ada perbedaan -->
+  <div id="eventsDual" class="events-grid reveal">
+    <div class="event-card">
+      <div class="event-type">Akad Nikah</div>
+      <div class="event-day" id="tanggalAkad"></div>
+      <div class="event-month" id="bulanAkad"></div>
+      <div class="event-time" id="jamAkad"></div>
+      <div class="event-venue" id="lokasiNama"></div>
+      <div class="event-address" id="lokasiAlamat"></div>
+      <a href="#" target="_blank" class="map-btn" id="lokasiMapsAkad">📍 Lihat Lokasi</a>
+    </div>
+    <div class="event-card">
+      <div class="event-type">Resepsi</div>
+      <div class="event-day" id="tanggalResepsi"></div>
+      <div class="event-month" id="bulanResepsi"></div>
+      <div class="event-time" id="jamResepsi"></div>
+      <div class="event-venue" id="lokasiResepsiNama"></div>
+      <div class="event-address" id="lokasiResepsiAlamat"></div>
+      <a href="#" target="_blank" class="map-btn" id="lokasiMapsResepsi">📍 Lihat Lokasi</a>
+    </div>
+  </div>
+</section>

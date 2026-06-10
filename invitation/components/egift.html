@@ -1,0 +1,28 @@
+<!-- components/egift.html -->
+<section id="egift">
+  <div class="section-label reveal">Hadiah Digital</div>
+  <div class="section-title reveal">E-Gift</div>
+  <div class="divider reveal"><span>✦</span></div>
+  <p class="reveal" style="max-width:440px;margin:0 auto 40px;text-align:center;font-size:0.85rem;color:var(--text-light);line-height:1.8;font-weight:300;">
+    Doa restu Anda adalah hadiah terindah bagi kami. Namun bila berkenan memberikan tanda kasih, kami siap menerimanya dengan tulus.
+  </p>
+  <div class="gift-cards reveal">
+    <div class="gift-card">
+      <div class="gift-bank" id="rek1Bank"></div>
+      <div class="gift-name" id="rek1Nama"></div>
+      <div class="gift-number" id="rek1Nomor"></div>
+      <button class="copy-btn" onclick="copyRek('rek1Nomor', this)">Salin Nomor</button>
+    </div>
+    <div class="gift-card">
+      <div class="gift-bank" id="rek2Bank"></div>
+      <div class="gift-name" id="rek2Nama"></div>
+      <div class="gift-number" id="rek2Nomor"></div>
+      <button class="copy-btn" onclick="copyRek('rek2Nomor', this)">Salin Nomor</button>
+    </div>
+    <div class="gift-card">
+      <div class="gift-bank">Alamat Pengiriman</div>
+      <div class="gift-name" id="alamatHadiah" style="font-size:0.9rem;line-height:1.6;"></div>
+      <button class="copy-btn" onclick="copyRek('alamatHadiah', this)" style="margin-top:10px">Salin Alamat</button>
+    </div>
+  </div>
+</section>

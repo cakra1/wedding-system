@@ -1,0 +1,46 @@
+<!-- wedding-system/dashboard/components/modals/tambah-tamu.html -->
+
+<div class="modal-backdrop" id="modal-tambah-tamu" onclick="closeModalOutside(event, 'modal-tambah-tamu')">
+  <div class="modal" onclick="event.stopImmediatePropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">Tambah Tamu Baru</h3>
+      <button onclick="closeModal('modal-tambah-tamu')" class="btn btn-icon">✕</button>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">NAMA TAMU / KELUARGA</label>
+      <input type="text" id="inputNamaTamu" placeholder="Contoh: Keluarga Budi Santoso" required>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">HUBUNGAN</label>
+      <select id="inputHubungan">
+        <option value="">Pilih Hubungan</option>
+        <option value="Keluarga Mempelai Pria">Keluarga Mempelai Pria</option>
+        <option value="Keluarga Mempelai Wanita">Keluarga Mempelai Wanita</option>
+        <option value="Teman Kantor">Teman Kantor</option>
+        <option value="Teman Sekolah">Teman Sekolah</option>
+        <option value="Tetangga">Tetangga</option>
+        <option value="Rekan Bisnis">Rekan Bisnis</option>
+        <option value="Lainnya">Lainnya</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="rsvpPhone">No WA</label>
+      <input 
+        class="form-input"
+        type="text"
+        id="inputNomorWa"
+        placeholder="08xx-xxxx-xxxx"
+      >
+    </div>
+
+    <div style="display:flex; gap:12px; margin-top:28px;">
+      <button onclick="closeModal('modal-tambah-tamu')" class="btn" style="flex:1">Batal</button>
+      <button onclick="tambahTamu()" class="btn btn-primary" style="flex:1">
+        <i class="ti ti-plus"></i> Tambah Tamu
+      </button>
+    </div>
+  </div>
+</div>

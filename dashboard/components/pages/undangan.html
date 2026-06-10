@@ -1,0 +1,94 @@
+<!-- components/pages/undangan.html -->
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+  <div>
+    <div class="page-title">Kirim Undangan</div>
+    <div class="page-sub">Pilih tamu & kirim undangan via WhatsApp</div>
+  </div>
+  <!-- btn-bulk-kirim: hidden (fitur WA Blast API belum aktif) -->
+  <button class="btn btn-primary" id="btn-bulk-kirim" onclick="bulkKirimWa()" style="display:none!important;visibility:hidden">
+    <i class="ti ti-brand-whatsapp"></i> Kirim WA Terpilih (<span id="bulk-count">0</span>)
+  </button>
+</div>
+
+<div class="grid-2" style="grid-template-columns:1fr 340px">
+
+  <!-- Panel Kiri: Tabel Tamu -->
+  <div class="card" style="height:fit-content">
+    <div class="card-header" style="flex-wrap:wrap;gap:8px">
+      <div class="card-title">Daftar Tamu</div>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto">
+        <!-- Search box -->
+        <div style="position:relative">
+          <i class="ti ti-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:15px"></i>
+          <input type="search" id="undangan-search" placeholder="Cari nama / no. HP..."
+                 style="padding-left:32px;width:210px;font-size:13px"
+                 oninput="onSearchUndangan(this.value)">
+        </div>
+        <!-- Filter tabs -->
+        <div style="display:flex;gap:4px">
+          <button class="btn btn-sm undangan-filter-btn active" data-filter="semua"   onclick="filterUndangan('semua')">Semua</button>
+          <button class="btn btn-sm undangan-filter-btn"        data-filter="belum"   onclick="filterUndangan('belum')">Belum RSVP</button>
+          <button class="btn btn-sm undangan-filter-btn"        data-filter="hadir"   onclick="filterUndangan('hadir')">Hadir</button>
+          <button class="btn btn-sm undangan-filter-btn"        data-filter="tidak"   onclick="filterUndangan('tidak')">Tidak Hadir</button>
+        </div>
+        <span class="badge badge-gray" id="undangan-total-badge">0 tamu</span>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:36px">
+            <input type="checkbox" id="undangan-check-all" onchange="toggleSelectAll(this.checked)" style="cursor:pointer">
+          </th>
+          <th data-sort-key="undangan" data-sort-col="nama" onclick="applySort('undangan','nama')" style="cursor:pointer;user-select:none">Nama Tamu<span class="sort-icon"></span></th>
+          <th data-sort-key="undangan" data-sort-col="nomor_wa" onclick="applySort('undangan','nomor_wa')" style="cursor:pointer;user-select:none">No WA<span class="sort-icon"></span></th>
+          <th data-sort-key="undangan" data-sort-col="_rsvpStatus" onclick="applySort('undangan','_rsvpStatus')" style="cursor:pointer;user-select:none">Status RSVP<span class="sort-icon"></span></th>
+          <th data-sort-key="undangan" data-sort-col="_kirimStatus" onclick="applySort('undangan','_kirimStatus')" style="cursor:pointer;user-select:none;width:130px">Status Kirim<span class="sort-icon"></span></th>
+          <th style="width:80px">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="undangan-tbody">
+        <tr><td colspan="6" style="text-align:center;color:var(--text2);padding:20px">Memuat...</td></tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-wrap" id="undangan-pagination" style="display:none">
+      <div class="pagination-info" id="undangan-pag-info"></div>
+      <div class="pagination-controls">
+        <span class="per-page-label">Tampilkan</span>
+        <select onchange="setPerPage('undangan', this.value)">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="999">Semua</option>
+        </select>
+        <span class="per-page-label">per halaman</span>
+        <button class="page-btn" id="undangan-prev" onclick="changePage('undangan', -1)">‹</button>
+        <span id="undangan-page-nums" style="display:flex;gap:4px"></span>
+        <button class="page-btn" id="undangan-next" onclick="changePage('undangan', 1)">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel Kanan: Template -->
+  <div class="card" style="height:fit-content">
+    <div class="card-header">
+      <div class="card-title">Template Pesan</div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:8px">
+      Gunakan <code style="background:var(--surface2);padding:1px 4px;border-radius:3px">[NAMA TAMU]</code> dan <code style="background:var(--surface2);padding:1px 4px;border-radius:3px">[LINK]</code> sebagai placeholder.
+    </div>
+    <textarea style="height:200px;font-size:12px;line-height:1.6" id="templateWa" placeholder="Memuat template..."></textarea>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:8px">
+      <div style="font-size:11px;color:var(--text3);line-height:1.5">
+        <i class="ti ti-info-circle" style="vertical-align:middle"></i>
+        Centang beberapa tamu lalu klik <strong>Kirim WA Terpilih</strong> untuk kirim sekaligus.
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveTemplateWa()" id="btn-save-template" style="white-space:nowrap;flex-shrink:0">
+        <i class="ti ti-device-floppy"></i> Simpan
+      </button>
+    </div>
+  </div>
+
+</div>

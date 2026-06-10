@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Normandia & Sella</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Login Gate -->
+  <div id="login-gate" style="
+    position:fixed;inset:0;z-index:9999;
+    background:var(--bg,#1a1a1a);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+  ">
+    <div style="
+      background:var(--surface,#242424);
+      border-radius:20px;
+      padding:40px 36px;
+      width:100%;max-width:360px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.07);
+      text-align:center;
+    ">
+      <div style="font-size:2rem;margin-bottom:12px">💍</div>
+      <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.4rem;color:#fff;margin-bottom:4px" id="login-title">Dashboard</div>
+      <div style="font-size:12px;color:#888;margin-bottom:28px" id="login-sub">Masukkan password untuk melanjutkan</div>
+
+      <!-- Username / No HP -->
+      <div style="margin-bottom:12px">
+        <input type="text" id="login-user" placeholder="Username atau Nomor HP"
+          onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()"
+          style="
+            width:100%;padding:13px 16px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:10px;color:#fff;font-size:14px;
+            outline:none;box-sizing:border-box;
+            transition:border-color 0.2s;
+          ">
+      </div>
+      <!-- Password -->
+      <div style="position:relative;margin-bottom:16px">
+        <input type="password" id="login-pass" placeholder="Password"
+          onkeydown="if(event.key==='Enter')doLogin()"
+          style="
+            width:100%;padding:13px 44px 13px 16px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:10px;color:#fff;font-size:14px;
+            outline:none;box-sizing:border-box;
+            transition:border-color 0.2s;
+          ">
+        <button onclick="toggleLoginPass()" style="
+          position:absolute;right:12px;top:50%;transform:translateY(-50%);
+          background:none;border:none;color:#888;cursor:pointer;font-size:16px;
+        ">👁</button>
+      </div>
+      <div id="login-error" style="color:#e07a5f;font-size:12px;margin-bottom:12px;display:none">Password salah, coba lagi.</div>
+      <button onclick="doLogin()" id="login-btn" style="
+        width:100%;padding:13px;
+        background:linear-gradient(135deg,#3a5a27,#5a7a40);
+        color:#fff;border:none;border-radius:10px;
+        font-size:14px;font-weight:600;cursor:pointer;
+        letter-spacing:0.05em;transition:opacity 0.2s;
+      ">Masuk</button>
+      <div style="font-size:11px;color:#555;margin-top:16px">Password default: <strong style="color:#888">wedding2026</strong></div>
+    </div>
+  </div>
+
+
+  <!-- Overlay untuk mobile (klik di luar = tutup sidebar) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- Tombol toggle saat sidebar tertutup -->
+  <button class="sidebar-toggle-outside" id="sidebarToggleOutside" onclick="toggleSidebar()" aria-label="Toggle menu">
+    <i class="ti ti-menu-2"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="slot-sidebar"></nav>
+
+  <!-- Main content area -->
+  <main class="main">
+    <div id="page-overview"  class="page"></div>
+    <div id="page-tamu"      class="page"></div>
+    <div id="page-rsvp"      class="page"></div>
+    <div id="page-wishes"    class="page"></div>
+    <div id="page-foto"      class="page"></div>
+    <div id="page-undangan"  class="page"></div>
+    <div id="page-settings"  class="page"></div>
+    <div id="page-akun"      class="page"></div>
+  </main>
+
+  <!-- Modals -->
+  <div id="slot-modal-tamu"></div>
+  <div id="slot-modal-edit-tamu"></div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script type="module" src="js/loader.js"></script>
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

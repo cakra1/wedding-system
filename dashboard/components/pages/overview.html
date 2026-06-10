@@ -1,0 +1,112 @@
+<!-- components/pages/overview.html -->
+<div class="page-header">
+  <div class="page-title">Overview</div>
+  <div class="page-sub">Ringkasan aktivitas undangan Anda</div>
+</div>
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-top">
+      <span class="metric-label">Total Tamu</span>
+      <i class="ti ti-users metric-icon"></i>
+    </div>
+    <div class="metric-val" id="totalTamu">0</div>
+    <div class="metric-sub" id="kelompokInfo">0 keluarga / kelompok</div>
+  </div>
+  <div class="metric">
+    <div class="metric-top">
+      <span class="metric-label">Sudah Buka</span>
+      <i class="ti ti-eye metric-icon"></i>
+    </div>
+    <div class="metric-val" id="sudahBuka">0</div>
+    <div class="metric-sub" id="sudahBukaText">0% dari total tamu</div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="sudahBukaBar" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="metric">
+    <div class="metric-top">
+      <span class="metric-label">RSVP Masuk</span>
+      <i class="ti ti-checkbox metric-icon"></i>
+    </div>
+    <div class="metric-val" id="totalRSVP">0</div>
+    <div class="metric-sub" id="rsvpInfo">0 hadir · 0 tidak hadir</div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="rsvpBar" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="metric">
+    <div class="metric-top">
+      <span class="metric-label">Wishes</span>
+      <i class="ti ti-heart metric-icon"></i>
+    </div>
+    <div class="metric-val" id="totalWishes">0</div>
+    <div class="metric-sub">ucapan masuk</div>
+  </div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Aktivitas Terbaru</div>
+        <div class="card-sub">Update real-time dari tamu</div>
+      </div>
+      <input
+        type="search"
+        placeholder="Cari nama..."
+        oninput="onSearchActivity(this.value)"
+        style="width:160px;padding:5px 10px;font-size:12px"
+      >
+    </div>
+    <div id="activityContainer"></div>
+    <div class="pagination-wrap" id="activity-pagination" style="display:none">
+      <span class="pagination-info" id="activity-pag-info"></span>
+      <div class="pagination-controls">
+        <span class="per-page-label">Tampilkan</span>
+        <select onchange="setPerPage('activity', this.value)">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="999">Semua</option>
+        </select>
+        <span class="per-page-label">per halaman</span>
+        <button class="page-btn" id="activity-prev" onclick="changePage('activity',-1)">‹</button>
+        <div id="activity-page-nums" style="display:flex;gap:4px"></div>
+        <button class="page-btn" id="activity-next" onclick="changePage('activity',1)">›</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Status RSVP</div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:center">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+            <span style="color:var(--text2)">Hadir</span>
+            <span style="font-weight:600" id="hadirCount">0</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-fill" id="hadirBar" style="width:0%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:12px;margin-bottom:4px">
+            <span style="color:var(--text2)">Tidak Hadir</span>
+            <span style="font-weight:600" id="tidakHadirCount">0</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-fill red" id="tidakHadirBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Hitung Mundur</div>
+        <i class="ti ti-clock metric-icon"></i>
+      </div>
+      <div id="countdown-container">
+        <div style="text-align:center;color:var(--text2);font-size:13px;padding:12px 0">Memuat...</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<!-- components/rsvp.html -->
+<section id="rsvp">
+    <div class="section-label reveal">Konfirmasi Kehadiran</div>
+    <div class="section-title reveal">RSVP</div>
+    <div class="divider reveal"><span>✦</span></div>
+    <p class="reveal" style="max-width:400px;margin:0 auto 40px;text-align:center;font-size:0.85rem;color:var(--text-light);line-height:1.8;font-weight:300;">
+      Mohon konfirmasi kehadiran Anda agar kami dapat mempersiapkan segalanya dengan lebih baik.
+    </p>
+    <form class="rsvp-form reveal" id="rsvpForm" onsubmit="submitRsvp(event)">
+      <div class="form-group">
+        <label class="form-label">Nama</label>
+        <input class="form-input" type="text" id="rsvpName" placeholder="Nama lengkap Anda" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nomor HP</label>
+        <input class="form-input" type="tel" id="rsvpPhone" placeholder="08xx-xxxx-xxxx" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Jumlah Tamu</label>
+        <select class="form-select" id="rsvpGuests">
+          <option value="1">1 orang</option>
+          <option value="2">2 orang</option>
+          <option value="3">3 orang</option>
+          <option value="4">4 orang</option>
+          <option value="5+">5+ orang</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Konfirmasi Kehadiran</label>
+        <div class="attendance-grid">
+          <div>
+            <input type="radio" name="attendance" id="hadir" value="hadir" class="attendance-opt" required>
+            <label for="hadir" class="attendance-label">✓ Hadir</label>
+          </div>
+          <div>
+            <input type="radio" name="attendance" id="tidakHadir" value="tidak" class="attendance-opt">
+            <label for="tidakHadir" class="attendance-label">✗ Tidak Hadir</label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Kirim Konfirmasi</button>
+    </form>
+    <div class="rsvp-success" id="rsvpSuccess">
+      <div style="font-size:2rem;margin-bottom:12px">🌿</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin-bottom:8px">Terima Kasih!</div>
+      <p style="font-size:0.85rem;color:var(--text-light)">Konfirmasi kehadiran Anda telah kami terima. Sampai jumpa di hari bahagia kami! 💛</p>
+    </div>
+  </section>

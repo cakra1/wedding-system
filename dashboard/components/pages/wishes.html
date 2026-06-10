@@ -1,0 +1,58 @@
+<!-- components/pages/wishes.html -->
+<div class="page-sticky-header">
+  <div>
+    <div class="page-title">Ucapan & Doa</div>
+    <div class="page-sub">Ucapan yang dikirim tamu melalui halaman undangan</div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn" id="btn-bulk-hapus-wishes" onclick="bulkHapusWishes()" style="display:none;color:#e07a5f;border-color:#e07a5f">
+      <i class="ti ti-trash"></i> Hapus Terpilih (<span id="bulk-hapus-wishes-count">0</span>)
+    </button>
+    <button class="btn" onclick="exportWishes()"><i class="ti ti-download"></i> Export CSV</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Semua Ucapan</div>
+      <div class="card-sub" id="wishesTotal">—</div>
+    </div>
+    <input type="search" placeholder="Cari nama / ucapan..." style="width:220px"
+           oninput="onSearchWishes(this.value)">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">
+          <input type="checkbox" id="wishes-check-all" onchange="toggleSelectAllWishes(this.checked)" style="cursor:pointer">
+        </th>
+        <th data-sort-key="wishes" data-sort-col="nama" onclick="applySort('wishes','nama')" style="cursor:pointer;user-select:none">Nama<span class="sort-icon"></span></th>
+        <th data-sort-key="wishes" data-sort-col="nomor_hp" onclick="applySort('wishes','nomor_hp')" style="cursor:pointer;user-select:none">Nomor HP<span class="sort-icon"></span></th>
+        <th data-sort-key="wishes" data-sort-col="pesan" onclick="applySort('wishes','pesan')" style="cursor:pointer;user-select:none">Ucapan<span class="sort-icon"></span></th>
+        <th data-sort-key="wishes" data-sort-col="created_at" onclick="applySort('wishes','created_at')" style="cursor:pointer;user-select:none;text-align:right">Waktu<span class="sort-icon"></span></th>
+        <th style="width:48px">Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="wishes-container">
+      <tr><td colspan="6" style="text-align:center;color:var(--text2);padding:20px">Memuat data...</td></tr>
+    </tbody>
+  </table>
+  <div class="pagination-wrap" id="wishes-pagination" style="display:none">
+    <div class="pagination-info" id="wishes-pag-info"></div>
+    <div class="pagination-controls">
+      <span class="per-page-label">Tampilkan</span>
+      <select onchange="setPerPage('wishes', this.value)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="999">Semua</option>
+      </select>
+      <span class="per-page-label">per halaman</span>
+      <button class="page-btn" id="wishes-prev" onclick="changePage('wishes', -1)">‹</button>
+      <span id="wishes-page-nums" style="display:flex;gap:4px"></span>
+      <button class="page-btn" id="wishes-next" onclick="changePage('wishes', 1)">›</button>
+    </div>
+  </div>
+</div>

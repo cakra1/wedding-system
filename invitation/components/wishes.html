@@ -1,0 +1,53 @@
+<!-- components/wishes.html -->
+<section id="wishes">
+    <div class="section-label reveal">Doa &amp; Harapan</div>
+    <div class="section-title reveal">Wedding Wishes</div>
+    <div class="divider reveal"><span>✦</span></div>
+    <!-- Tampil jika belum submit RSVP -->
+    <div id="wishLocked" class="wish-locked reveal" style="display:block;text-align:center;padding:28px 20px;border:1px dashed var(--gold);border-radius:12px;margin-bottom:32px;max-width:420px;margin-left:auto;margin-right:auto">
+      <div style="font-size:1.5rem;margin-bottom:10px">🔒</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:8px">Konfirmasi Kehadiran Dulu</div>
+      <p style="font-size:0.82rem;color:var(--text-light);line-height:1.7">Silakan isi formulir RSVP di atas terlebih dahulu. Nama Anda akan otomatis terkait dengan ucapan ini.</p>
+      <a href="#rsvp" style="display:inline-block;margin-top:14px;font-size:0.8rem;color:var(--gold);text-decoration:underline">↑ Isi RSVP sekarang</a>
+    </div>
+    <!-- Tampil setelah RSVP berhasil -->
+    <form class="wish-form reveal" id="wishForm" onsubmit="submitWish(event)" style="display:none">
+      <input type="hidden" id="wishName">
+      <input type="hidden" id="wishHp">
+
+      <!-- Nama display -->
+      <div class="wish-sender-box">
+        <div class="wish-sender-avatar" id="wishSenderAvatar"></div>
+        <div>
+          <div style="font-size:0.72rem;letter-spacing:0.15em;color:var(--sage);text-transform:uppercase;margin-bottom:2px">Ucapan dari</div>
+          <div id="wishNameDisplay" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--dark);font-weight:600"></div>
+        </div>
+      </div>
+
+      <!-- Textarea indah -->
+      <div class="wish-textarea-wrap">
+        <div class="wish-quote-icon">❝</div>
+        <textarea
+          id="wishMsg"
+          maxlength="300"
+          rows="5"
+          placeholder="Tulis doa dan harapan tulus Anda untuk kedua mempelai…"
+          required
+          oninput="updateWishCounter(this)"
+          style="width:100%;border:none;background:transparent;resize:none;outline:none;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--dark);line-height:1.8;padding:0;font-weight:300"
+        ></textarea>
+        <div class="wish-counter"><span id="wishCounter">300</span> karakter tersisa</div>
+      </div>
+
+      <button type="submit" class="wish-submit-btn">
+        <span>Kirim Ucapan</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+    <div class="wishes-list" id="wishesList">
+      <div class="wish-card">
+        <div class="wish-name">Tim Undangan</div>
+        <div class="wish-msg">Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Aamiin 🤲</div>
+      </div>
+    </div>
+  </section>

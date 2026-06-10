@@ -1,0 +1,40 @@
+<!-- components/pages/foto.html -->
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+  <div>
+    <div class="page-title">Foto Pre-Wedding</div>
+    <div class="page-sub">Foto yang tampil di halaman undangan tamu</div>
+  </div>
+  <label class="btn btn-primary" style="cursor:pointer">
+    <i class="ti ti-upload"></i> Upload Foto
+    <input type="file" accept="image/*" multiple style="display:none" onchange="uploadFoto(this)">
+  </label>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Galeri Foto</div>
+      <div class="card-sub" id="fotoSubtitle">Memuat foto...</div>
+    </div>
+  </div>
+  <div class="photo-grid" id="foto-grid">
+    <!-- Diisi dinamis oleh app.js -->
+    <label class="photo-slot" style="cursor:pointer" id="foto-upload-slot">
+      <i class="ti ti-plus"></i>
+      <span>Upload Foto</span>
+      <input type="file" accept="image/*" multiple style="display:none" onchange="uploadFoto(this)">
+    </label>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Catatan</div>
+  </div>
+  <p style="font-size:13px;color:var(--text2);line-height:1.8">
+    Foto yang diupload otomatis muncul di galeri undangan tamu.<br>
+    Bisa upload banyak sekaligus — tahan <strong>Ctrl</strong> untuk pilih lebih dari 1 foto.<br>
+    Ukuran maksimal per foto: <strong>10 MB</strong>. Format: JPG, PNG, WEBP.<br>
+    Hapus foto satu per satu dengan hover → klik icon 🗑️.
+  </p>
+</div>

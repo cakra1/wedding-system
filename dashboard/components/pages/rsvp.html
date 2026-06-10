@@ -1,0 +1,76 @@
+<!-- components/pages/rsvp.html -->
+<div class="page-sticky-header">
+  <div>
+    <div class="page-title">Data RSVP</div>
+    <div class="page-sub">Rekap konfirmasi kehadiran tamu</div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn" id="btn-bulk-hapus-rsvp" onclick="bulkHapusRsvp()" style="display:none;color:#e07a5f;border-color:#e07a5f">
+      <i class="ti ti-trash"></i> Hapus Terpilih (<span id="bulk-hapus-rsvp-count">0</span>)
+    </button>
+    <button class="btn" onclick="exportRsvp()"><i class="ti ti-download"></i> Export Excel</button>
+  </div>
+</div>
+
+<div class="rsvp-stats">
+  <div class="rsvp-stat">
+    <div class="rsvp-stat-val" style="color:#166534" id="rsvpHadir">—</div>
+    <div class="rsvp-stat-label">Konfirmasi Hadir</div>
+    <div class="progress-wrap" style="margin-top:8px">
+      <div class="progress-fill" id="progressRsvpHadir" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="rsvp-stat">
+    <div class="rsvp-stat-val" style="color:#991b1b" id="rsvpTidakHadir">—</div>
+    <div class="rsvp-stat-label">Tidak Hadir</div>
+    <div class="progress-wrap" style="margin-top:8px">
+      <div class="progress-fill red" id="progressRsvpTidak" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="rsvp-stat">
+    <div class="rsvp-stat-val" style="color:var(--text2)" id="rsvpEstimasi">—</div>
+    <div class="rsvp-stat-label">Estimasi Tamu Hadir</div>
+    <div style="font-size:11px;color:var(--text3);margin-top:4px">dari total RSVP masuk</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Semua Konfirmasi</div>
+    <input type="search" placeholder="Cari..." style="width:200px"
+           oninput="onSearchRsvp(this.value)">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px"><input type="checkbox" id="rsvp-check-all" onchange="toggleSelectAllRsvp(this.checked)" style="cursor:pointer"></th>
+        <th data-sort-key="rsvp" data-sort-col="nama" onclick="applySort('rsvp','nama')" style="cursor:pointer;user-select:none">Nama<span class="sort-icon"></span></th>
+        <th data-sort-key="rsvp" data-sort-col="nomor_hp" onclick="applySort('rsvp','nomor_hp')" style="cursor:pointer;user-select:none">Nomor HP<span class="sort-icon"></span></th>
+        <th data-sort-key="rsvp" data-sort-col="jumlah_tamu" onclick="applySort('rsvp','jumlah_tamu')" style="cursor:pointer;user-select:none">Jumlah Tamu<span class="sort-icon"></span></th>
+        <th data-sort-key="rsvp" data-sort-col="kehadiran" onclick="applySort('rsvp','kehadiran')" style="cursor:pointer;user-select:none">Status<span class="sort-icon"></span></th>
+        <th data-sort-key="rsvp" data-sort-col="created_at" onclick="applySort('rsvp','created_at')" style="cursor:pointer;user-select:none">Waktu<span class="sort-icon"></span></th>
+        <th style="width:48px">Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="rsvp-tbody">
+      <tr><td colspan="6" style="text-align:center;color:var(--text2);padding:20px">Memuat data...</td></tr>
+    </tbody>
+  </table>
+  <div class="pagination-wrap" id="rsvp-pagination" style="display:none">
+    <div class="pagination-info" id="rsvp-pag-info"></div>
+    <div class="pagination-controls">
+      <span class="per-page-label">Tampilkan</span>
+      <select onchange="setPerPage('rsvp', this.value)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="999">Semua</option>
+      </select>
+      <span class="per-page-label">per halaman</span>
+      <button class="page-btn" id="rsvp-prev" onclick="changePage('rsvp', -1)">‹</button>
+      <span id="rsvp-page-nums" style="display:flex;gap:4px"></span>
+      <button class="page-btn" id="rsvp-next" onclick="changePage('rsvp', 1)">›</button>
+    </div>
+  </div>
+</div>

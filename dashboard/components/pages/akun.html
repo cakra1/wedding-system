@@ -1,0 +1,182 @@
+<!-- components/pages/akun.html -->
+<div style="position:sticky;top:-28px;z-index:10;background:#111;padding:18px 28px 16px;margin:-28px -28px 20px;border-bottom:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 20px rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <div class="page-title" style="margin:0">Manajemen Akun</div>
+    <div class="page-sub" style="margin:0">Kelola akun admin yang bisa mengakses dashboard</div>
+  </div>
+  <button class="btn btn-primary" id="btnTambahAkun" onclick="openTambahAkun()" style="display:none">
+    <i class="ti ti-plus"></i> Tambah Akun
+  </button>
+</div>
+
+<!-- TABEL SEMUA AKUN (admin only) -->
+<div class="card" id="akun-table-card" style="display:none">
+  <div class="card-header">
+    <div class="card-title">Daftar Akun</div>
+    <div style="font-size:12px;color:var(--text3)">Klik ✏️ untuk memilih akun yang ingin diedit</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Nomor HP</th>
+        <th>Dibuat</th>
+        <th style="width:80px">Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="akun-tbody">
+      <tr><td colspan="5" style="text-align:center;color:var(--text2);padding:20px">Memuat...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PANEL EDIT -->
+<div class="card" id="akun-edit-panel">
+  <div class="card-header">
+    <div class="card-title" id="akun-panel-title">Edit Akun</div>
+  </div>
+
+  <!-- Dropdown (admin only) -->
+  <div id="akun-dropdown-wrap" style="display:none;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)">
+    <label class="form-label" style="display:block;margin-bottom:8px">Pilih akun yang ingin diedit</label>
+    <select id="akun-select-user" onchange="onSelectAkunDropdown(this.value)"
+      style="width:100%;max-width:400px;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;cursor:pointer">
+      <option value="">— Pilih akun —</option>
+    </select>
+  </div>
+
+  <!-- Empty state (admin, belum pilih) -->
+  <div id="akun-panel-empty" style="text-align:center;padding:40px 20px;color:var(--text3)">
+    <i class="ti ti-user-search" style="font-size:2.8rem;opacity:0.25;display:block;margin:0 auto 12px"></i>
+    <div style="font-size:13px">Pilih akun dari dropdown di atas atau klik ✏️ di tabel</div>
+  </div>
+
+  <!-- Form edit -->
+  <div id="akun-form-wrap" style="display:none">
+    <input type="hidden" id="akun-edit-id">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="form-row">
+        <label class="form-label"><i class="ti ti-user" style="color:var(--sage)"></i> Username</label>
+        <input type="text" id="akun-username" placeholder="cth: normandia" autocomplete="off"
+          style="width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+          onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div class="form-row">
+        <label class="form-label"><i class="ti ti-phone" style="color:var(--sage)"></i> Nomor HP <span style="font-size:10px;color:var(--text3)">(opsional)</span></label>
+        <input type="tel" id="akun-nohp" placeholder="08xx-xxxx-xxxx" autocomplete="off"
+          style="width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+          onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div class="form-row" id="akun-role-row" style="display:none">
+        <label class="form-label"><i class="ti ti-shield" style="color:var(--sage)"></i> Level Akses</label>
+        <select id="akun-role"
+          style="width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box">
+          <option value="admin">👑 Admin — akses penuh</option>
+          <option value="user">👤 User — hanya lihat Overview, RSVP, Wishes</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label"><i class="ti ti-lock" style="color:var(--sage)"></i> Password Baru <span style="font-size:10px;color:var(--text3)">(kosongkan jika tidak diganti)</span></label>
+        <div style="position:relative">
+          <input type="password" id="akun-password" placeholder="Kosongkan jika tidak diganti"
+            autocomplete="new-password"
+            style="width:100%;padding:11px 48px 11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+            onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'"
+            onkeydown="if(event.key==='Enter')simpanAkun()">
+          <button onclick="togglePassVisibility('akun-password')"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;padding:4px">
+            <i class="ti ti-eye" style="font-size:16px"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="simpanAkun()">
+        <i class="ti ti-device-floppy"></i> Simpan Perubahan
+      </button>
+      <button id="akun-hapus-panel-btn" class="btn" onclick="hapusAkunDariPanel()"
+        style="color:#e07a5f;border-color:#e07a5f;display:none">
+        <i class="ti ti-trash"></i> Hapus Akun
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Sesi Aktif -->
+<div class="card">
+  <div class="card-header"><div class="card-title">Sesi Aktif</div></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0">
+    <div>
+      <div style="font-size:13px;font-weight:500" id="akun-aktif-username">—</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:2px">Login di sesi ini</div>
+    </div>
+    <button class="btn btn-sm" onclick="logout()" style="color:#e07a5f;border-color:#e07a5f">
+      <i class="ti ti-logout"></i> Keluar
+    </button>
+  </div>
+</div>
+
+<!-- Modal Tambah Akun Baru (admin only) -->
+<div id="modal-akun" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:1000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--surface);border-radius:20px;width:100%;max-width:460px;box-shadow:0 32px 80px rgba(0,0,0,0.6)">
+    <div style="padding:22px 24px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-weight:700;font-size:16px">Tambah Akun Baru</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px">Akun admin untuk login ke dashboard</div>
+      </div>
+      <button onclick="closeModalAkun()" class="btn btn-sm btn-icon" style="width:32px;height:32px;font-size:16px">✕</button>
+    </div>
+    <div style="padding:24px;display:flex;flex-direction:column;gap:18px">
+      <div>
+        <label class="form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <i class="ti ti-user" style="color:var(--sage)"></i> Username
+        </label>
+        <input type="text" id="modal-akun-username" placeholder="cth: sella" autocomplete="off"
+          style="width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+          onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <label class="form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <i class="ti ti-phone" style="color:var(--sage)"></i> Nomor HP
+          <span style="font-size:10px;color:var(--text3);font-weight:400">(opsional, bisa untuk login)</span>
+        </label>
+        <input type="tel" id="modal-akun-nohp" placeholder="08xx-xxxx-xxxx" autocomplete="off"
+          style="width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+          onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <label class="form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <i class="ti ti-shield" style="color:var(--sage)"></i> Level Akses
+        </label>
+        <select id="modal-akun-role"
+          style="width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box">
+          <option value="admin">👑 Admin — akses penuh</option>
+          <option value="user">👤 User — hanya lihat Overview, RSVP, Wishes</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <i class="ti ti-lock" style="color:var(--sage)"></i> Password
+        </label>
+        <div style="position:relative">
+          <input type="password" id="modal-akun-password" placeholder="Minimal 6 karakter"
+            autocomplete="new-password"
+            style="width:100%;padding:11px 48px 11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+            onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'"
+            onkeydown="if(event.key==='Enter')simpanTambahAkun()">
+          <button onclick="togglePassVisibility('modal-akun-password')"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;padding:4px">
+            <i class="ti ti-eye" style="font-size:16px"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end">
+      <button class="btn" onclick="closeModalAkun()" style="min-width:80px">Batal</button>
+      <button class="btn btn-primary" onclick="simpanTambahAkun()" style="min-width:120px">
+        <i class="ti ti-plus"></i> Tambah Akun
+      </button>
+    </div>
+  </div>
+</div>
