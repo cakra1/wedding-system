@@ -13,7 +13,7 @@
     10. setGuestName()   - Set nama tamu dari URL ?name=
    ============================================================ */
 
-import { supabase } from '../../shared/js/supabase.js';
+import { supabase } from './supabase.js';
 
 // Nama tamu yang sudah submit RSVP (digunakan untuk Wishes)
 let rsvpSubmittedName = null;
