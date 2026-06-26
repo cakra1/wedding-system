@@ -2,24 +2,35 @@ name: Supabase Keep Alive
 
 on:
   schedule:
-    - cron: '0 8 */3 * *'  # Tiap 3 hari sekali, jam 8 pagi UTC (3 siang WIB)
-  workflow_dispatch:        # Bisa trigger manual dari tab Actions
+    - cron: '0 8 * * *'   # Tiap hari jam 8 pagi UTC (3 sore WIB)
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Supabase — keep project alive
+      - name: Keep Supabase alive (insert + delete)
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            "https://cbohctaafmiudbqabjpt.supabase.co/rest/v1/tamu?select=id&limit=1" \
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          INSERT_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            "https://cbohctaafmiudbqabjpt.supabase.co/rest/v1/keep_alive" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
-          echo "Response status: $STATUS"
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
-            echo "✅ Supabase aktif dan merespons."
-          else
-            echo "⚠️  Status tidak normal: $STATUS"
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"note\": \"keep-alive\", \"pinged_at\": \"$TIMESTAMP\"}")
+
+          echo "Insert status: $INSERT_STATUS"
+          if [ "$INSERT_STATUS" -lt 200 ] || [ "$INSERT_STATUS" -ge 300 ]; then
+            echo "⚠️ Insert gagal, status: $INSERT_STATUS"
             exit 1
           fi
+
+          CUTOFF=$(date -u -d "1 day ago" +"%Y-%m-%dT%H:%M:%SZ")
+          curl -s -o /dev/null -X DELETE \
+            "https://cbohctaafmiudbqabjpt.supabase.co/rest/v1/keep_alive?pinged_at=lt.$CUTOFF" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
+
+          echo "✅ Supabase tetap aktif — insert+delete berhasil."
